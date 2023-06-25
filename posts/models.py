@@ -6,7 +6,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created = models.DateField(auto_created=True)
-    images =  models.ImageField()
+    images =  models.ImageField(upload_to='images', blank=True)
 
     class Meta:
         ordering = ['-created']
