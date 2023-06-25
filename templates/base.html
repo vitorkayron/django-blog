@@ -1,21 +1,68 @@
 {% load static %}
-
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-    {% block title %}
+    <title>{% block title %}{% endblock %}</title>
 
-    {% endblock %}
-    </title>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
-<body>
-    {% block content %}
-
+<body class="bg-neutral-300 h-screen">
+    {% block nav %}
+    <header class="bg-neutral-300">
+        <nav class="flex justify-between items-center w-[92%] h-16  mx-auto">
+            <div>
+                <a href="{% url 'home' %}" w-16 cursor-pointer"><strong>Python</strong></a>
+            </div>
+            <div
+                class="nav-links duration-500 md:static absolute bg-neutral-300 md:min-h-fit min-h-[60vh] left-0 top-[-100%] md:w-auto  w-full flex items-center px-5">
+                <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
+                    <li>
+                        <a class="hover:text-gray-500" href="#">Blog</a>
+                    </li>
+                    <li>
+                        <a class="hover:text-gray-500" href="#">Projects</a>
+                    </li>
+                    <li>
+                        <a class="hover:text-gray-500" href="#">About</a>
+                    </li>
+                    <li>
+                        <a class="hover:text-gray-500" href="#">Contact</a>
+                    </li>
+                    </ul>
+            </div>
+            <div class="flex items-center gap-6">
+                <ul class="flex flex-row gap-2">
+                    {% if user.is_authenticated %}
+                    <li class="bg-white border-[#a6c1ee] text-[#87acec] px-5 py-2 rounded-full hover:bg-[#87acec] hover:text-white cursor-pointer"><a href="{% url 'account_email' %}">{% trans "Change E-mail" %}</a></li>
+                    <li class="bg-white border-[#a6c1ee] text-[#87acec] px-5 py-2 rounded-full hover:bg-[#87acec] hover:text-white cursor-pointer"><a href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a></li>
+                    {% else %}
+                    <li class="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec] cursor-pointer"><a href="{% url 'account_login' %}">{% trans "Sign In" %}</a></li>
+                    <li class="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec] cursor-pointer"><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
+                    {% endif %}
+                </ul>
+                <ion-icon onclick="onToggleMenu(this)" name="menu" class="text-3xl cursor-pointer md:hidden"></ion-icon>
+            </div >
+            <hr>
+    </header>
     {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+
+    <script>
+        const navLinks = document.querySelector('.nav-links')
+        function onToggleMenu(e){
+            e.name = e.name === 'menu' ? 'close' : 'menu'
+            navLinks.classList.toggle('top-[9%]')
+        }
+    </script>
 </body>
 </html>
