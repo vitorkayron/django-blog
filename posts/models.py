@@ -5,7 +5,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100, unique=True, blank=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
-    created = models.DateField(auto_created=True)
+    created = models.DateField(auto_now_add=True)
     images =  models.ImageField(upload_to='images', blank=True)
 
     class Meta:

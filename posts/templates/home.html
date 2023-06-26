@@ -13,13 +13,18 @@ Blog
   </h1>
 
   
-<h1>POSTS</h1>
+<h1>POSTS: </h1>
 
 {% for post in posts %}
-<h2>{{ post.title }}</h2>
-<p>{{ post.content }}</p>
+  <h2>{{ post.title }}</h2>
+  <p>{{ post.content }}</p>
+  <p>Author: {{ post.author }}</p>
+  <p>Created: {{ post.created }}</p>
+  {% if post.images %}
+    <img src="{{ post.images.url }}" alt="Post Image">
+  {% endif %}
+  <br>
 {% endfor %}
-
 
 {% endblock %}
 
