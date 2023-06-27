@@ -13,12 +13,15 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
+
+<body>
+
 <body class="bg-neutral-300 h-screen">
     {% block nav %}
     <header class="bg-neutral-300">
         <nav class="flex justify-between items-center w-[92%] h-16  mx-auto">
             <div>
-                <a href="{% url 'home' %}" w-16 cursor-pointer"><strong>Python</strong></a>
+                <a href="{% url 'home' %}" w-16 cursor-pointer><strong>Python</strong></a>
             </div>
             <div
                 class="nav-links duration-500 md:static absolute bg-neutral-300 md:min-h-fit min-h-[60vh] left-0 top-[-100%] md:w-auto  w-full flex items-center px-5">
@@ -55,6 +58,7 @@
 
     {% block content %}
     {% endblock %}
+
 
 
     <script>
