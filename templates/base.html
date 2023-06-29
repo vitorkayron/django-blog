@@ -8,19 +8,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
    
-    {% block css %}
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block tailwind %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/4d83d4ce88.js" crossorigin="anonymous"></script>
     {% endblock %}
 </head>
 
 <body>
 
 <body>
-    {% block nav %}
-    {% endblock %}
-    <div class="body">
-    {% block content %}
-    {% endblock %}
+    <div class="h-screen bg-zinc-900 ">
+        <div class="flex">
+            <aside class="flex flex-col justify-around h-screen p-6 text-zinc-200 group w-16 hover:w-32">
+                <nav class="space-y-10">
+
+                    <div class="transition ease-in-out flex gap-2 hover:-translate-y-1 hover:scale-110">
+                        <a href="{% url 'home' %}"><i class="fa-solid fa-house"></i></a>
+                        <a href="{% url 'home' %}" class="invisible group-hover:visible">home</a>
+                    </div >
+
+                    <div class="transition ease-in-out flex gap-2 hover:-translate-y-1 hover:scale-110">
+                        <a href=""><i class="fa-solid fa-bell"></i></a>
+                        <a href="" class="invisible group-hover:visible">Notifications</a>
+                    </div>
+                    
+                    <div class="transition ease-in-out flex gap-2 hover:-translate-y-1 hover:scale-110">
+                        <a href=""><i class="fa-solid fa-bookmark"></i></a>
+                        <a href="" class="invisible group-hover:visible">BookMark</a>
+                    </div>
+                         
+                    
+                    <a href="" class="flex">
+                        
+                    </a>
+                </nav>
+
+                {% block nav %}
+                {% endblock %}
+            </aside>             
+
+            <main class="flex-1 p-6 text-zinc-200 ">
+                <section class="container mx-auto item-center max-w-6xl space-y-10">
+
+                    {% block content %}
+                    {% endblock %}
+                </section>
+            </main>
+        
+
+        </div>
     </div>
 </body>
 </html>

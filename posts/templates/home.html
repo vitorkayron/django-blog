@@ -2,80 +2,83 @@
 {% load static %}
 {% load i18n %}
 
+{% block tailwind %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/4d83d4ce88.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+<!--
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+</style>
+-->
+
 
 {% block title %}
-Blog
+Py-Blog
 {% endblock %}
 
 {% block nav %}
-<nav>
-  <div class="nav-top">
-      <ul class="nav-items-right">
-          <li>Contact us</li>
-          <li>pt-br</li>
-      </ul>
-  </div>
-  <div class="nav">
-      <!-- NAV TOP - LOGO -->
-      <a href="{% url 'home' %}" class="logo">Python <span class="logo2">BLOG</span></a>
-      <ul class="nav-items">
-          <li class="items"><a class="link" href="{% url 'post' %}">Blog</a></li>
-          <li class="items"><a class="link" href="">Projects</a></li>
-          <li class="items"><a class="link" href="">About</a></li>
-      </ul>
+  <div class="flex flex-col space-y-10 group w-16 hover:w-32">
+      {% if user.is_authenticated %}
+      <div class="transition ease-in-out flex gap-2 hover:-translate-y-1 hover:scale-110">
+        <a href="{% url 'post' %}"><i class="fa-solid fa-pen-to-square"></i></a>
+        <a href="{% url 'post' %}" class="invisible group-hover:visible">Post</a>
+      </div >
 
-      <div class="nav-right">
-        <div class="buttons">
-          {% if user.is_authenticated %}
-          <a class="button-55" href="{% url 'account_email' %}">{% trans "Change E-mail" %}</a>
-          <a class="button-55" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-          {% else %}
-          <a class="button-55" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-          <a class="button-55" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-          {% endif %}
-        </div>
+      <div class="transition ease-in-out flex gap-2 hover:-translate-y-1 hover:scale-110">
+        <a href="{% url 'account_email' %}"> <i class="fa-solid fa-envelope"></i></a>
+        <a href="{% url 'account_email' %}" class="invisible group-hover:visible">Email</a>
       </div>
+          
+      <div class="transition ease-in-out flex gap-2 hover:-translate-y-1 hover:scale-110">
+        <a href="{% url 'account_logout' %}"><i class="fa-solid fa-user"></i></a>
+        <a href="{% url 'account_logout' %}" class="invisible group-hover:visible">{% trans 'LogOut' %}</a>
+      </div>
+
+      {% else %}
+
+      <div class="transition ease-in-out flex gap-2 hover:-translate-y-1 hover:scale-110">
+        <a href="{% url 'account_signup' %}"><i class="fa-solid fa-user-plus"></i></a>
+        <a href="{% url 'account_signup' %}" class="invisible group-hover:visible">{% trans 'SignUp' %}</a>
+      </div>
+
+      <div class="transition ease-in-out flex gap-2 hover:-translate-y-1 hover:scale-110">
+        <a href="{% url 'account_login' %}"><i class="fa-solid fa-circle-user"></i></a>
+        <a href="{% url 'account_login' %}" class="invisible group-hover:visible">{% trans 'LogIn' %}</a>
+      </div>
+      {% endif %}
   </div>
-</nav>
 {% endblock %}
-
-{% if user.is_authenticated %}
-                    <li class="bg-white border-[#a6c1ee] text-[#87acec] px-5 py-2 rounded-full hover:bg-[#87acec] hover:text-white cursor-pointer"><a href="{% url 'account_email' %}">{% trans "Change E-mail" %}</a></li>
-                    <li class="bg-white border-[#a6c1ee] text-[#87acec] px-5 py-2 rounded-full hover:bg-[#87acec] hover:text-white cursor-pointer"><a href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a></li>
-                    {% else %}
-                    <li class="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec] cursor-pointer"><a href="{% url 'account_login' %}">{% trans "Sign In" %}</a></li>
-                    <li class="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec] cursor-pointer"><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
-                    {% endif %}
-
-
-
-
-
-
-
-
 
 
 
 {% block content %}
+          {% for post in posts %}
+          <div class="flex">
+              <a href="" class="flex flex-col mt-3">
+                  <h2 class="font-bold text-2xl hover:underline">{{ post.title }}</h2>
+                  <p class="hover:underline mt-4">{{ post.content }}</p>
+              </a>
+          </div>
 
-<h1 class="text-3xl font-bold underline">
-    Teste
-  </h1>
+          <div class="flex items-start justify-between mt-4">
+              <div class="flex items-center">
+                  <a href="">
+                      <img src="/img/profile.png" alt="" class="object-cover w-6 h-6 mx-4 rounded-full">
+                      <a class="mr-6">{{ post.author }}</a>
+                      <small>{{ post.created }}</small>
+                  </a>
+              </div>
+              <a href="" class="hover:underline hover:text-violet-950">Read more</a>
+          </div>
+          {% endfor %}
 
-  
-<h1>POSTS: </h1>
-
-{% for post in posts %}
-  <h2>{{ post.title }}</h2>
-  <p>{{ post.content }}</p>
-  <p>Author: {{ post.author }}</p>
-  <p>Created: {{ post.created }}</p>
-  {% if post.images %}
-    <img src="{{ post.images.url }}" alt="Post Image">
-  {% endif %}
-  <br>
-{% endfor %}
-
+          <!--
+          {% if post.images %}
+          <img src="{{ post.images.url }}" alt="Post Image">
+          {% endif %}
+          -->
+          
 {% endblock %}
 

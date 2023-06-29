@@ -3,40 +3,25 @@
 {% load i18n %}
 
 
-
-<link rel="stylesheet" href="{% static '/css/base.css' %}">
-
-
-
-{% block nav %}
-  <nav>
-    <div class="nav-top">
-        <ul class="nav-items-right">
-            <li>Contact us</li>
-            <li>pt-br</li>
-        </ul>
-    </div>
-    <div class="nav">
-        <!-- NAV TOP - LOGO -->
-        <a href="{% url 'home' %}" class="logo">Python <span class="logo2">BLOG</span></a>
-        <ul class="nav-items">
-            <li class="items"><a class="link" href="{% url 'post' %}">Blog</a></li>
-            <li class="items"><a class="link" href="">Projects</a></li>
-            <li class="items"><a class="link" href="">About</a></li>
-        </ul>
-
-        <div class="nav-right">
-          <div class="buttons">
-            <a class="button-55" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-          </div>
-        </div>
-    </div>
-  </nav>
+{% block tailwind %}
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/4d83d4ce88.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block head_title %}
   {% trans "Signup" %}
 {% endblock %}
+
+{% block nav %}
+<div class="flex flex-col space-y-10 group w-16 hover:w-32">
+  <div class="transition ease-in-out flex gap-2 hover:-translate-y-1 hover:scale-110">
+    <a href="{% url 'account_login' %}"><i class="fa-solid fa-circle-user"></i></a>
+    <a href="{% url 'account_login' %}" class="invisible group-hover:visible">{% trans 'LogIn' %}</a>
+  </div>
+</div>
+{% endblock %}
+
+
 
 {% block content %}
     <div class="container-form">

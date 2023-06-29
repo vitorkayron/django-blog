@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     posts = Post.objects.all()
-    return render(request, 'home.html', {'posts': posts})
+    return render(request, 'home.html', {'posts': posts})    
 
+@login_required
 def post(request):
+    
     if request.method == "GET":
         posts = Post.objects.all()
         authors = User.objects.all()
@@ -23,6 +26,15 @@ def post(request):
             post = Post(title=title, content=content, author=author, images=images)
             post.save()
             return redirect('/')
+    
+    if request.user.is_superuser:
+        #allow access only to superuser
+        return render(request, 'form.html')
+    else:
+        #allow access only to user
+        return render(request, 'home.html')
+    
 
+    
 
 

@@ -7,41 +7,25 @@
 {% endblock %}
 
 
-<link rel="stylesheet" href="{% static '/css/base.css' %}">
+{% block tailwind %}
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/4d83d4ce88.js" crossorigin="anonymous"></script>
+{% endblock %}
 
 
 
 {% block nav %}
-  <nav>
-    <div class="nav-top">
-        <ul class="nav-items-right">
-            <li>Contact us</li>
-            <li>pt-br</li>
-        </ul>
-    </div>
-    <div class="nav">
-        <!-- NAV TOP - LOGO -->
-        <a href="{% url 'home' %}" class="logo">Python <span class="logo2">BLOG</span></a>
-        <ul class="nav-items">
-            <li class="items"><a class="link" href="{% url 'post' %}">Blog</a></li>
-            <li class="items"><a class="link" href="">Projects</a></li>
-            <li class="items"><a class="link" href="">About</a></li>
-        </ul>
-
-        <div class="nav-right">
-          <div class="buttons">
-            <a class="button-55" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-          </div>
-        </div>
-    </div>
-  </nav>
+<div class="flex flex-col space-y-10 group w-16 hover:w-32">
+  <div class="transition ease-in-out flex gap-2 hover:-translate-y-1 hover:scale-110">
+    <a href="{% url 'account_signup' %}"><i class="fa-solid fa-user-plus"></i></a>
+    <a href="{% url 'account_signup' %}" class="invisible group-hover:visible">{% trans 'SignUp' %}</a>
+  </div>
+</div>
 {% endblock %}
 
 
 {% block content %}
-<div class="container-form">
-  <div class="card-form">
-    <h3 class="">Sign in to our platform</h3>
+  <div class="flex"> 
     <form class="" method="POST" action="{% url 'account_login' %}">
       {% csrf_token %}
       {{ form.as_p }}
@@ -51,8 +35,6 @@
       <a class="" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
       <button class="btn-success" type="submit">{% trans "Sign In" %}</button>       
     </form>
-  </div>
-</div>          
-
+  </div>         
 {% endblock %}
 
