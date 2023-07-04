@@ -7,6 +7,7 @@ class Post(models.Model):
     content = models.TextField()
     created = models.DateField(auto_now_add=True)
     images =  models.ImageField(upload_to='images', blank=True)
+    views = models.IntegerField(default=0)
 
     class Meta:
         ordering = ['-created']

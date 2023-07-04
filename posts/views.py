@@ -8,8 +8,7 @@ def home(request):
     return render(request, 'home.html', {'posts': posts})    
 
 @login_required
-def post(request):
-    
+def new_post(request):
     if request.method == "GET":
         posts = Post.objects.all()
         authors = User.objects.all()
@@ -36,5 +35,11 @@ def post(request):
     
 
     
+def post_detail(request, id):
+    post = get_object_or_404(Post, id=id)
+    post.views += 1
+    post.save()
+    return render(request, 'post_detail.html', {'post': post})
+
 def contact(request):
      return render(request, 'contact.html')
